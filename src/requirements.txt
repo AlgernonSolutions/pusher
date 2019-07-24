@@ -1,0 +1,5 @@
+boto3
+requests
+moncrief
+psycopg2
+mysql-connector
