@@ -32,7 +32,7 @@ def _check_for_object(s3_object):
 
 
 def _store_to_s3(bucket_name, base_file_key, scalar: Union[InputVertex, InputEdge]):
-    file_key = f'{base_file_key}/{scalar.internal_id}'
+    file_key = f'{base_file_key}/{scalar.internal_id}.json'
     s3_resource = boto3.resource('s3')
     s3_object = s3_resource.Object(bucket_name, file_key)
     if _check_for_object(s3_object):
