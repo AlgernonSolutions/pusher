@@ -4,7 +4,7 @@ from queue import Queue
 from threading import Thread
 
 from algernon.aws import lambda_logged
-from algernon import ajson
+from algernon import ajson, rebuild_event
 from toll_booth import tasks
 
 
@@ -34,6 +34,7 @@ def _run_handler(work_queue, results):
 
 @lambda_logged
 def handler(event, context):
+    event = rebuild_event(event)
     logging.info(f'received a call to push an object to persistence: {event}/{context}')
     work_queue = Queue()
     results = deque()
