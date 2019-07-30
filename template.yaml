@@ -3,9 +3,6 @@ Transform:
 - AWS::Serverless-2016-10-31
 
 Parameters:
-  NeptuneClusterArn:
-    Type: String
-    Description: The ARN of the Neptune cluster to be used for this GQL api
   NeptuneClusterEndpoint:
     Type: String
     Description: The endpoint of the graph database cluster
