@@ -1,6 +1,6 @@
 import json
 from os import path
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -30,3 +30,13 @@ def _read_test_event(event_name):
     with open(path.join('test_events', f'{event_name}.json')) as json_file:
         event = json.load(json_file)
         return event
+
+
+@pytest.fixture(autouse=True)
+def silence_x_ray():
+    x_ray_patch_all = 'algernon.aws.lambda_logging.patch_all'
+    patch(x_ray_patch_all).start()
+    yield
+    patch.stopall()
+
+

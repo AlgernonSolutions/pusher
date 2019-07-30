@@ -1,11 +1,21 @@
 import logging
+import os
 from collections import deque
 from queue import Queue
 from threading import Thread
 
+import boto3
 from algernon.aws import lambda_logged
 from algernon import ajson, rebuild_event
 from toll_booth import tasks
+
+
+def _load_config(variable_names):
+    client = boto3.client('ssm')
+    response = client.get_parameters(Names=[x for x in variable_names])
+    results = [(x['Name'], x['Value']) for x in response['Parameters']]
+    for entry in results:
+        os.environ[entry[0]] = entry[1]
 
 
 def _run_handler(work_queue, results):
@@ -19,7 +29,7 @@ def _run_handler(work_queue, results):
         source_vertex = leech_result['source_vertex']
         push_kwargs.update({
             'edge': leech_result.get('edge'),
-            'target_vertex': leech_result.get('target_vertex')
+            'target_vertex': leech_result.get('other_vertex')
         })
         pusher = getattr(tasks, f'{push_type}_handler', None)
         if pusher is None:
@@ -36,6 +46,8 @@ def _run_handler(work_queue, results):
 def handler(event, context):
     event = rebuild_event(event)
     logging.info(f'received a call to push an object to persistence: {event}/{context}')
+    config_variables = ['INDEX_TABLE_NAME', 'GRAPH_DB_ENDPOINT', 'GRAPH_DB_READER_ENDPOINT', 'LEECH_BUCKET']
+    _load_config(config_variables)
     work_queue = Queue()
     results = deque()
     push_type = event['push_type']

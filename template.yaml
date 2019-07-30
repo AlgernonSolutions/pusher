@@ -3,12 +3,6 @@ Transform:
 - AWS::Serverless-2016-10-31
 
 Parameters:
-  NeptuneClusterEndpoint:
-    Type: String
-    Description: The endpoint of the graph database cluster
-  NeptuneClusterReadEndpoint:
-    Type: String
-    Description: The read only endpoint of the graph database cluster
   NeptuneSecurityGroupIds:
     Type: List<AWS::EC2::SecurityGroup::Id>
     Description: A collection of Security Group IDs capable of interacting with the Neptune Cluster
@@ -36,7 +30,3 @@ Resources:
       VpcConfig:
         SecurityGroupIds: !Ref NeptuneSecurityGroupIds
         SubnetIds: !Ref NeptuneSubnetIds
-      Environment:
-        Variables:
-          GRAPH_DB_ENDPOINT: !Ref NeptuneClusterEndpoint
-          GRAPH_DB_READER_ENDPOINT: !Ref NeptuneClusterReadEndpoint
