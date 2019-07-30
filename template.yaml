@@ -12,3 +12,18 @@ Resources:
       Tracing: Active
       CodeUri: src/
       Role: !ImportValue dev-worker-role-arn
+  VpcTask:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: toll_booth.handler
+      Runtime: python3.7
+      Tracing: Active
+      CodeUri: src/
+      Role: !ImportValue dev-worker-role-arn
+      VpcConfig:
+        SecurityGroupIds: '{{resolve:ssm:graph_sg_ids:1}}'
+        SubnetIds: '{{resolve:ssm:graph_sn_ids:1}}'
+      Environment:
+        Variables:
+          GRAPH_DB_ENDPOINT: '{{resolve:ssm:graph_db_endpoint:1}}'
+          GRAPH_DB_READER_ENDPOINT: '{{resolve:ssm:graph_db_reader_endpoint:1}}'

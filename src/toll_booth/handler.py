@@ -17,13 +17,19 @@ def _run_handler(work_queue, results):
         push_type = task['push_type']
         push_kwargs = task.get('push_kwargs', {})
         source_vertex = leech_result['source_vertex']
-        edge = leech_result.get('edge')
-        target_vertex = leech_result.get('target_vertex')
+        push_kwargs.update({
+            'edge': leech_result.get('edge'),
+            'target_vertex': leech_result.get('target_vertex')
+        })
         pusher = getattr(tasks, f'{push_type}_handler', None)
         if pusher is None:
             raise RuntimeError(f'do not know how to push object for {push_type}')
-        push_results = pusher(source_vertex, edge, target_vertex, **push_kwargs)
+        try:
+            push_results = pusher(source_vertex, **push_kwargs)
+        except Exception as e:
+            push_results = e
         results.append(push_results)
+        work_queue.task_done()
 
 
 @lambda_logged
