@@ -27,7 +27,7 @@ def _run_handler(work_queue, results):
         try:
             push_results = pusher(source_vertex, **push_kwargs)
         except Exception as e:
-            push_results = e
+            push_results = e.args
         results.append(push_results)
         work_queue.task_done()
 
