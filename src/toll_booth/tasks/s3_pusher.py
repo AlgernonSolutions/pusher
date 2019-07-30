@@ -9,16 +9,7 @@ import rapidjson
 from botocore.exceptions import ClientError
 
 from toll_booth.obj.scalars.inputs import InputVertex, InputEdge
-
-
-class FireHoseEncoder(json.JSONEncoder):
-    @classmethod
-    def default(cls, obj):
-        if isinstance(obj, datetime):
-            return obj.isoformat()
-        if isinstance(obj, Decimal):
-            return float(obj)
-        return super(FireHoseEncoder, cls()).default(obj)
+from toll_booth.obj.serializers import FireHoseEncoder
 
 
 def _check_for_object(s3_object):
