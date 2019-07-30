@@ -2,6 +2,22 @@ AWSTemplateFormatVersion: 2010-09-09
 Transform:
 - AWS::Serverless-2016-10-31
 
+Parameters:
+  NeptuneClusterArn:
+    Type: String
+    Description: The ARN of the Neptune cluster to be used for this GQL api
+  NeptuneClusterEndpoint:
+    Type: String
+    Description: The endpoint of the graph database cluster
+  NeptuneClusterReadEndpoint:
+    Type: String
+    Description: The read only endpoint of the graph database cluster
+  NeptuneSecurityGroupIds:
+    Type: List<AWS::EC2::SecurityGroup::Id>
+    Description: A collection of Security Group IDs capable of interacting with the Neptune Cluster
+  NeptuneSubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: A collection of Subnet IDs which can interact with the Neptune Cluster
 
 Resources:
   Task:
@@ -21,9 +37,9 @@ Resources:
       CodeUri: src/
       Role: !ImportValue dev-worker-role-arn
       VpcConfig:
-        SecurityGroupIds: '{{resolve:ssm:graph_sg_ids:1}}'
-        SubnetIds: '{{resolve:ssm:graph_sn_ids:1}}'
+        SecurityGroupIds: !Ref NeptuneSecurityGroupIds
+        SubnetIds: !Ref NeptuneSubnetIds
       Environment:
         Variables:
-          GRAPH_DB_ENDPOINT: '{{resolve:ssm:graph_db_endpoint:1}}'
-          GRAPH_DB_READER_ENDPOINT: '{{resolve:ssm:graph_db_reader_endpoint:1}}'
+          GRAPH_DB_ENDPOINT: !Ref NeptuneClusterEndpoint
+          GRAPH_DB_READER_ENDPOINT: !Ref NeptuneClusterReadEndpoint
