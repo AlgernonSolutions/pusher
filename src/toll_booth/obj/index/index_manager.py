@@ -87,7 +87,7 @@ class IndexManager:
         self._table = boto3.resource('dynamodb').Table(self._table_name)
         self._indexes = indexes
 
-    @xray_recorder.capture()
+    # @xray_recorder.capture()
     def index_object(self, scalar_object: Union[InputEdge, InputVertex]):
         """
 

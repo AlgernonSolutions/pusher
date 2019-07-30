@@ -8,6 +8,8 @@ import boto3
 from algernon.aws import lambda_logged
 from algernon import ajson, rebuild_event
 from toll_booth import tasks
+from toll_booth.obj.progress_tracking import Overseer
+from toll_booth.obj.scalars.inputs import InputVertex, InputEdge
 
 
 def _load_config(variable_names):
@@ -26,11 +28,11 @@ def _run_handler(work_queue, results):
         leech_result = task['leech_result']
         push_type = task['push_type']
         push_kwargs = task.get('push_kwargs', {})
-        source_vertex = leech_result['source_vertex']
-        push_kwargs.update({
-            'edge': leech_result.get('edge'),
-            'target_vertex': leech_result.get('other_vertex')
-        })
+        source_vertex = InputVertex.from_arguments(leech_result['source_vertex'])
+        if leech_result.get('edge'):
+            push_kwargs['edge'] = InputEdge.from_arguments(leech_result['edge'])
+        if leech_result.get('other_vertex'):
+            push_kwargs['target_vertex'] = InputVertex.from_arguments(leech_result['other_vertex'])
         pusher = getattr(tasks, f'{push_type}_handler', None)
         if pusher is None:
             raise RuntimeError(f'do not know how to push object for {push_type}')
