@@ -70,4 +70,4 @@ def handler(event, context):
         work_queue.put(None)
     for worker in workers:
         worker.join()
-    return ajson.dumps([x for x in results])
+    return {'push_type': push_type, 'results': [x for x in results]}
