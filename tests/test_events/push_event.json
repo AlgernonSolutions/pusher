@@ -1,0 +1,234 @@
+{
+  "push_type": "graph",
+  "aio": [
+    {
+      "source_vertex": {
+        "id_value": {
+          "data_type": "N",
+          "property_name": "id_value",
+          "property_value": "3192288"
+        },
+        "identifier_stem": {
+          "data_type": "S",
+          "property_value": "#vertex#Encounter#{\"id_source\": \"ICFS\"}#",
+          "property_name": "identifier_stem"
+        },
+        "internal_id": "f068d66403987e5c46ffd69f6238e938",
+        "vertex_type": "Encounter",
+        "vertex_properties": {
+          "local_properties": [
+            {
+              "data_type": "N",
+              "property_name": "encounter_id",
+              "property_value": "3192288"
+            },
+            {
+              "data_type": "N",
+              "property_name": "provider_id",
+              "property_value": "13475"
+            },
+            {
+              "data_type": "N",
+              "property_name": "patient_id",
+              "property_value": "1458401"
+            },
+            {
+              "data_type": "S",
+              "property_name": "encounter_type",
+              "property_value": "Community Support"
+            },
+            {
+              "data_type": "DT",
+              "property_name": "encounter_datetime_in",
+              "property_value": "2019-02-28T12:23:00+0000"
+            },
+            {
+              "data_type": "DT",
+              "property_name": "encounter_datetime_out",
+              "property_value": "2019-02-28T13:40:00+0000"
+            },
+            {
+              "data_type": "S",
+              "property_name": "id_source",
+              "property_value": "ICFS"
+            }
+          ],
+          "stored_properties": [
+            {
+              "data_type": "S",
+              "property_name": "documentation",
+              "storage_class": "s3",
+              "storage_uri": "s3://algernonsolutions-encounters-dev/f068d66403987e5c46ffd69f6238e938.documentation"
+            }
+          ]
+        }
+      },
+      "other_vertex": {
+        "id_value": {
+          "data_type": "N",
+          "property_name": "id_value",
+          "property_value": "1458401"
+        },
+        "identifier_stem": {
+          "data_type": "S",
+          "property_value": "#vertex#Patient#{\"id_source\": \"ICFS\"}#",
+          "property_name": "identifier_stem"
+        },
+        "internal_id": "966e534815828049749adfcff61b1733",
+        "vertex_type": "Patient",
+        "vertex_properties": {
+          "local_properties": [
+            {
+              "data_type": "N",
+              "property_name": "patient_id",
+              "property_value": "1458401"
+            },
+            {
+              "data_type": "S",
+              "property_name": "id_source",
+              "property_value": "ICFS"
+            }
+          ],
+          "sensitive_properties": [
+            {
+              "data_type": "S",
+              "property_name": "last_name",
+              "property_value": "MARSHMAN-PETERS",
+              "source_internal_id": "966e534815828049749adfcff61b1733"
+            },
+            {
+              "data_type": "S",
+              "property_name": "first_name",
+              "property_value": "ALICIA",
+              "source_internal_id": "966e534815828049749adfcff61b1733"
+            },
+            {
+              "data_type": "DT",
+              "property_name": "dob",
+              "property_value": "1967-02-13T00:00:00+0000",
+              "source_internal_id": "966e534815828049749adfcff61b1733"
+            }
+          ]
+        }
+      },
+      "edge": {
+        "edge_label": "_received_",
+        "internal_id": "584d70bdcfa888db1463a7a8d64f3424",
+        "source_vertex_internal_id": "f068d66403987e5c46ffd69f6238e938",
+        "target_vertex_internal_id": "966e534815828049749adfcff61b1733",
+        "edge_properties": {
+          "local_properties": [
+            {
+              "data_type": "S",
+              "property_name": "encounter_type",
+              "property_value": "Community Support"
+            },
+            {
+              "data_type": "DT",
+              "property_name": "encounter_datetime_in",
+              "property_value": "2019-02-28T12:23:00+0000"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "source_vertex": {
+        "id_value": {
+          "data_type": "N",
+          "property_name": "id_value",
+          "property_value": "3192288"
+        },
+        "identifier_stem": {
+          "data_type": "S",
+          "property_value": "#vertex#Encounter#{\"id_source\": \"ICFS\"}#",
+          "property_name": "identifier_stem"
+        },
+        "internal_id": "f068d66403987e5c46ffd69f6238e938",
+        "vertex_type": "Encounter",
+        "vertex_properties": {
+          "local_properties": [
+            {
+              "data_type": "N",
+              "property_name": "encounter_id",
+              "property_value": "3192288"
+            },
+            {
+              "data_type": "N",
+              "property_name": "provider_id",
+              "property_value": "13475"
+            },
+            {
+              "data_type": "N",
+              "property_name": "patient_id",
+              "property_value": "1458401"
+            },
+            {
+              "data_type": "S",
+              "property_name": "encounter_type",
+              "property_value": "Community Support"
+            },
+            {
+              "data_type": "DT",
+              "property_name": "encounter_datetime_in",
+              "property_value": "2019-02-28T12:23:00+0000"
+            },
+            {
+              "data_type": "DT",
+              "property_name": "encounter_datetime_out",
+              "property_value": "2019-02-28T13:40:00+0000"
+            },
+            {
+              "data_type": "S",
+              "property_name": "id_source",
+              "property_value": "ICFS"
+            }
+          ],
+          "stored_properties": [
+            {
+              "data_type": "S",
+              "property_name": "documentation",
+              "storage_class": "s3",
+              "storage_uri": "s3://algernonsolutions-encounters-dev/f068d66403987e5c46ffd69f6238e938.documentation"
+            }
+          ]
+        }
+      },
+      "other_vertex": {
+        "id_value": {
+          "data_type": "N",
+          "property_name": "id_value",
+          "property_value": "13475"
+        },
+        "identifier_stem": {
+          "data_type": "S",
+          "property_value": "#vertex#Provider#{\"id_source\": \"ICFS\"}#",
+          "property_name": "identifier_stem"
+        },
+        "internal_id": "dc7f4449106376a3c1be10a453d27e29",
+        "vertex_type": "Provider",
+        "vertex_properties": {
+          "local_properties": [
+            {
+              "data_type": "N",
+              "property_name": "provider_id",
+              "property_value": "13475"
+            },
+            {
+              "data_type": "S",
+              "property_name": "id_source",
+              "property_value": "ICFS"
+            }
+          ]
+        }
+      },
+      "edge": {
+        "edge_label": "_provided_",
+        "internal_id": "f0f3c43717ccbe234730cbffd35fd739",
+        "source_vertex_internal_id": "dc7f4449106376a3c1be10a453d27e29",
+        "target_vertex_internal_id": "f068d66403987e5c46ffd69f6238e938",
+        "edge_properties": {}
+      }
+    }
+  ]
+}
