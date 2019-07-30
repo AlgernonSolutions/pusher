@@ -8,9 +8,10 @@ from toll_booth import tasks
 def handler(event, context):
     logging.info(f'received a call to push an object to persistence: {event}/{context}')
     push_type = event['push_type']
-    source_vertex = event['source_vertex']
-    edge = event.get('edge')
-    target_vertex = event.get('target_vertex')
+    leech_results = event['aio']
+    source_vertex = leech_results['source_vertex']
+    edge = leech_results.get('edge')
+    target_vertex = leech_results.get('target_vertex')
     push_kwargs = event.get('push_kwargs', {})
     pusher = getattr(tasks, f'{push_type}_handler', None)
     if pusher is None:
