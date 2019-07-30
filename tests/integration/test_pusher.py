@@ -10,6 +10,11 @@ class TestPusher:
         results = toll_booth.handler(push_event, mock_context)
         assert results
 
+    def test_s3_pusher(self, push_event, mock_context):
+        push_event['push_type'] = 's3'
+        results = toll_booth.handler(push_event, mock_context)
+        assert results
+
     def test_index_pusher(self, push_event, mock_context):
         push_event['push_type'] = 'index'
         results = toll_booth.handler(push_event, mock_context)

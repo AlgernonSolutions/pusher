@@ -5,10 +5,10 @@ from queue import Queue
 from threading import Thread
 
 import boto3
-from algernon.aws import lambda_logged
 from algernon import ajson, rebuild_event
+from algernon.aws import lambda_logged
+
 from toll_booth import tasks
-from toll_booth.obj.progress_tracking import Overseer
 from toll_booth.obj.scalars.inputs import InputVertex, InputEdge
 
 
@@ -25,6 +25,7 @@ def _run_handler(work_queue, results):
         task = work_queue.get()
         if task is None:
             return
+        logging.info(f'processing task: {task}')
         leech_result = task['leech_result']
         push_type = task['push_type']
         push_kwargs = task.get('push_kwargs', {})

@@ -11,8 +11,44 @@ class Ogm:
 
     def graph_vertex(self, vertex_scalar: InputVertex):
         command = create_vertex_command_from_scalar(vertex_scalar)
-        return self._trident_driver.execute(command)
+        try:
+            self._trident_driver.execute(command)
+            return {
+                'status': 'succeeded',
+                'operation': 'graph_vertex',
+                'details': {
+                    'message': '',
+                    'command': command
+                }
+            }
+        except Exception as e:
+            return {
+                'status': 'failed',
+                'operation': 'graph_vertex',
+                'details': {
+                    'message': e.args,
+                    'command': command
+                }
+            }
 
     def graph_edge(self, edge_scalar: InputEdge):
         command = create_edge_command_from_scalar(edge_scalar)
-        return self._trident_driver.execute(command)
+        try:
+            self._trident_driver.execute(command)
+            return {
+                'status': 'succeeded',
+                'operation': 'graph_edge',
+                'details': {
+                    'message': '',
+                    'command': command
+                }
+            }
+        except Exception as e:
+            return {
+                'status': 'failed',
+                'operation': 'graph_edge',
+                'details': {
+                    'message': e.args,
+                    'command': command
+                }
+            }

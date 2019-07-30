@@ -8,11 +8,31 @@ from toll_booth.obj.scalars.inputs import InputVertex, InputEdge
 
 def _index_object(index_manager: IndexManager, scalar: Union[InputVertex, InputEdge]):
     try:
-        index_results = index_manager.index_object(scalar)
+        index_manager.index_object(scalar)
+        return {
+            'status': 'succeeded',
+            'operation': 'index_object',
+            'details': {
+                'message': ''
+            }
+        }
     except UniqueIndexViolationException as e:
         logging.warning(f'attempted to index {scalar}, it seems it has already been indexed: {e.index_name}')
-        index_results = f'object: {scalar} indexed already, nothing done'
-    return index_results
+        return {
+            'status': 'failed',
+            'operation': 'index_object',
+            'details': {
+                'message': f'attempted to index {scalar}, it seems it has already been indexed: {e.index_name}'
+            }
+        }
+    except Exception as e:
+        return {
+            'status': 'failed',
+            'operation': 'index_object',
+            'details': {
+                'message': e.args
+            }
+        }
 
 
 def index_handler(source_vertex, **kwargs):

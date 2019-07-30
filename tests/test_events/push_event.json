@@ -93,19 +93,19 @@
             {
               "data_type": "S",
               "property_name": "last_name",
-              "property_value": "XXXXXXXXX",
+              "property_value": "MARSHMAN-PETERS",
               "source_internal_id": "966e534815828049749adfcff61b1733"
             },
             {
               "data_type": "S",
               "property_name": "first_name",
-              "property_value": "XXXXXXXXXXX",
+              "property_value": "ALICIA",
               "source_internal_id": "966e534815828049749adfcff61b1733"
             },
             {
               "data_type": "DT",
               "property_name": "dob",
-              "property_value": "1999-01-01T00:00:00+0000",
+              "property_value": "1967-02-13T00:00:00+0000",
               "source_internal_id": "966e534815828049749adfcff61b1733"
             }
           ]
@@ -126,7 +126,7 @@
             {
               "data_type": "DT",
               "property_name": "encounter_datetime_in",
-              "property_value": "199-01-01T12:23:00+0000"
+              "property_value": "2019-02-28T12:23:00+0000"
             }
           ]
         }
@@ -171,12 +171,12 @@
             {
               "data_type": "DT",
               "property_name": "encounter_datetime_in",
-              "property_value": "1999-01-01T12:23:00+0000"
+              "property_value": "2019-02-28T12:23:00+0000"
             },
             {
               "data_type": "DT",
               "property_name": "encounter_datetime_out",
-              "property_value": "1999-01-01T13:40:00+0000"
+              "property_value": "2019-02-28T13:40:00+0000"
             },
             {
               "data_type": "S",
