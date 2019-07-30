@@ -30,7 +30,7 @@ def _store_to_s3(bucket_name, base_file_key, scalar: Union[InputVertex, InputEdg
 
 def s3_handler(source_vertex: InputVertex, edge: InputEdge = None, target_vertex: InputVertex = None, **kwargs):
     s3_results = {}
-    bucket_name = os.environ['BUCKET_NAME']
+    bucket_name = kwargs['bucket_name']
     base_file_key = kwargs['base_file_key']
     s3_results['source_vertex'] = _store_to_s3(bucket_name, base_file_key, source_vertex)
     if target_vertex:

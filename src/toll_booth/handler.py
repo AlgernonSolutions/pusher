@@ -48,7 +48,9 @@ def _run_handler(work_queue, results):
 def handler(event, context):
     event = rebuild_event(event)
     logging.info(f'received a call to push an object to persistence: {event}/{context}')
-    config_variables = ['INDEX_TABLE_NAME', 'GRAPH_DB_ENDPOINT', 'GRAPH_DB_READER_ENDPOINT', 'LEECH_BUCKET']
+    config_variables = [
+        'INDEX_TABLE_NAME', 'GRAPH_DB_ENDPOINT', 'GRAPH_DB_READER_ENDPOINT', 'LEECH_BUCKET', 'SENSITIVES_TABLE_NAME'
+    ]
     _load_config(config_variables)
     work_queue = Queue()
     results = deque()
