@@ -6,30 +6,29 @@ from toll_booth.obj.scalars.inputs import InputVertex
 from toll_booth.obj.serializers import FireHoseEncoder
 
 
+def _generate_new_object_event(new_object, is_edge=False):
+    detail_type = 'vertex_added'
+    if is_edge:
+        detail_type = 'edge_added'
+    event_entry = {
+        'Source': 'algernon',
+        'DetailType': detail_type,
+        'Detail': rapidjson.dumps(new_object.for_index, default=FireHoseEncoder.default),
+        'Resources': []
+    }
+    logging.debug(f'generated event for {new_object}: {event_entry}')
+    return event_entry
+
+
 def event_handler(source_vertex: InputVertex, **kwargs):
     logging.info(f'received a call to the event_handler: {source_vertex}, {kwargs}')
     session = boto3.session.Session()
     event_client = session.client('events')
-    entries = [{
-        'Source': 'algernon',
-        'DetailType': 'vertex_added',
-        'Detail': rapidjson.dumps(source_vertex.for_index, default=FireHoseEncoder.default),
-        'Resources': []
-    }]
+    entries = [_generate_new_object_event(source_vertex)]
     if kwargs.get('edge'):
-        entries.append({
-            'Source': 'algernon',
-            'DetailType': 'edge_added',
-            'Detail': rapidjson.dumps(kwargs.get('edge').for_index, default=FireHoseEncoder.default),
-            'Resources': []
-        })
+        entries.append(_generate_new_object_event(kwargs['edge'], is_edge=True))
     if kwargs.get('target_vertex'):
-        entries.append({
-            'Source': 'algernon',
-            'DetailType': 'vertex_added',
-            'Detail': rapidjson.dumps(kwargs.get('target_vertex').for_index, default=FireHoseEncoder.default),
-            'Resources': []
-        })
+        entries.append(_generate_new_object_event(kwargs['target_vertex']))
     response = event_client.put_events(Entries=entries)
     failed = [x for x in response['Entries'] if 'ErrorCode' in x]
     if failed:
